@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import "tailwindcss";
+@plugin "daisyui"{
+    themes: light --default, dark --prefersdark;
+}
+
+@font-face {
+  font-family: 'Monserrat';
+  src: url('/assets/fonts/Montserrat-alternates-medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+
+@theme {
+  --font-monserrat: 'Monserrat', sans-serif;
+}
+
+.animate-bounce-custom {
+  animation: fadeIn 1s ease-in-out;
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
