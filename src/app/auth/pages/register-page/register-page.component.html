@@ -1,0 +1,95 @@
+<form class="flex flex-col gap-2" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <label class="input validator">
+        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </g>
+        </svg>
+        <input type="text" placeholder="Nombre completo" formControlName="fullName" />
+    </label>
+    @if(registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched){
+    @if (registerForm.get('fullName')?.errors?.['pattern']) {
+    <small class="text-red-500">Ingrese Nombre y Apellido.</small>
+    }@else if (registerForm.get('fullName')?.errors?.['required']) {
+    <small class="text-red-500">El nombre completo es requerido.</small>
+    }@else {
+    <small class="text-red-500">Error no controlado.</small>
+    }
+    }
+
+
+
+    <label class="input validator">
+        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </g>
+        </svg>
+        <input type="text" placeholder="mail@site.com" formControlName="email" />
+    </label>
+    @if(registerForm.get('email')?.invalid && registerForm.get('email')?.touched){
+    @if (registerForm.get('email')?.errors?.['email']) {
+    <small class="text-red-500">Ingrese un correo electrónico valido.</small>
+    }@else if (registerForm.get('email')?.errors?.['required']) {
+    <small class="text-red-500">El correo es requerido.</small>
+    }@else {
+    <small class="text-red-500">Error no controlado.</small>
+    }
+
+    }
+    <label class="input validator">
+        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+                <path
+                    d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
+                </path>
+                <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+            </g>
+        </svg>
+        <input type="password" placeholder="Contraseña" formControlName="password" />
+    </label>
+
+    @if(registerForm.get('password')?.invalid && registerForm.get('password')?.touched){
+    @if (registerForm.get('password')?.errors?.['pattern']) {
+    <small class="text-red-500">La contraseña debe tener al menos 8 caracteres, incluyendo mayúscula, minúscula, número
+        y símbolo.</small>
+    }@else if (registerForm.get('password')?.errors?.['required']) {
+    <small class="text-red-500">El nombre completo es requerido.</small>
+    }@else {
+    <small class="text-red-500">Error no controlado.</small>
+    }
+    }
+
+
+
+    <label class="input validator">
+        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+                <path
+                    d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
+                </path>
+                <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+            </g>
+        </svg>
+        <input type="password" placeholder="Verificar Contraseña" formControlName="passwordCheck" />
+    </label>
+
+
+    @if(registerForm.get('passwordCheck')?.invalid && registerForm.get('passwordCheck')?.touched){
+    @if (registerForm.hasError('passwordMismatch')) {
+    <small class="text-red-500">Las contraseñas no coinciden</small>
+    }@else if (registerForm.get('passwordCheck')?.errors?.['required']) {
+    <small class="text-red-500">La verificación de contraseña es requerida.</small>
+    }@else {
+    <small class="text-red-500">Error no controlado.</small>
+    }
+    }
+
+    <button type="submit" class="btn btn-secondary">Registrar</button>
+
+
+    <p class="text-slate-500">¿Ya tienes una cuenta? <a class="underline text-info cursor-pointer"
+            routerLink="/auth/login">Ingresar</a></p>
+</form>
