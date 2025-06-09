@@ -6,7 +6,7 @@
                 <circle cx="12" cy="7" r="4"></circle>
             </g>
         </svg>
-        <input type="text" placeholder="Nombre completo" formControlName="fullName" />
+        <input type="text" placeholder="Nombre completo" formControlName="fullName" (keydown)="preventInvalidChars($event)"/>
     </label>
     @if(registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched){
     @if (registerForm.get('fullName')?.errors?.['pattern']) {
@@ -77,13 +77,11 @@
     </label>
 
 
-    @if(registerForm.get('passwordCheck')?.invalid && registerForm.get('passwordCheck')?.touched){
-    @if (registerForm.hasError('passwordMismatch')) {
-    <small class="text-red-500">Las contraseñas no coinciden</small>
-    }@else if (registerForm.get('passwordCheck')?.errors?.['required']) {
+    @if (registerForm.get('passwordCheck')?.touched) {
+    @if (registerForm.get('passwordCheck')?.errors?.['required']) {
     <small class="text-red-500">La verificación de contraseña es requerida.</small>
-    }@else {
-    <small class="text-red-500">Error no controlado.</small>
+    } @else if (registerForm.hasError('passwordMismatch')) {
+    <small class="text-red-500">Las contraseñas no coinciden.</small>
     }
     }
 

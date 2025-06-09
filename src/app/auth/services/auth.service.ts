@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { AuthResponse } from '../interfaces/auth-response.interface';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { RegisterUser } from '../interfaces/register.interface';
 
 const baseUrl = environment.baseUrl;
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
@@ -31,12 +32,23 @@ export class AuthService {
     if (this._user()) {
       return 'authenticated';
     }
-
     return 'not-authenticated';
   });
 
   user = computed(() => this._user());
   token = computed(this._token);
+  isAdmin = computed(() => this._user()?.roles.includes('admin') ?? false);
+
+  register(registerUser: RegisterUser): Observable<boolean>{
+    return this.http.post<AuthResponse>(`${baseUrl}/auth/register`,{
+      fullName: registerUser.fullName,
+      email: registerUser.email,
+      password: registerUser.password
+    }).pipe(
+        map((resp) => this.handleAuthSuccess(resp)),
+        catchError((error: any) => this.handleAuthError(error))
+    )
+  }
 
   login(email: string, password: string): Observable<boolean> {
     return this.http
